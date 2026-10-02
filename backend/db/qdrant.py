@@ -24,15 +24,16 @@ def create_collection(vector_size: int):
         )
     )
 
-    def store_embeddings(embeddings):
-        points = []
+def store_embeddings(embeddings):
+    points = []
 
-        for item in embeddings:
-            points.append(
-                PointStruct(
-                    id=str(uuid.uuid4()),
-                    vector=item['embedding'],
-                    payload={"text": item['text']}
-                )
-        )
-        client.upsert(collection_name=COLLECTION_NAME,points=points)
+    for item in embeddings:
+        points.append(
+            PointStruct(
+                id=str(uuid.uuid4()),
+                vector=item['embedding'],
+                payload={"text": item['text']}
+            )
+    )
+        
+    client.upsert(collection_name=COLLECTION_NAME,points=points)
