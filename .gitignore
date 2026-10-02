@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# Uploaded files
+backend/uploads/*
+
+# Keep the uploads folder itself
+!backend/uploads/.gitkeep
+
