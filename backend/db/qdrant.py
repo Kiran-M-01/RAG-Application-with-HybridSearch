@@ -1,5 +1,6 @@
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams, PointStruct
+import uuid
 
 client = QdrantClient(host="localhost", port=6333)
 
@@ -29,7 +30,7 @@ def create_collection(vector_size: int):
         for item in embeddings:
             points.append(
                 PointStruct(
-                    id=str(uuid4()),
+                    id=str(uuid.uuid4()),
                     vector=item['embedding'],
                     payload={"text": item['text']}
                 )
