@@ -1,5 +1,6 @@
 from retrieval.keyword_search import keyword_search
 from retrieval.vector_search import vector_search
+from retrieval.rerank import rerank
 
 def hybrid_search(question, limit: 5):
     vector_results = vector_search(
@@ -34,5 +35,12 @@ def hybrid_search(question, limit: 5):
     results = list(
         merged.value()
     )
+
+    results = rerank(
+        question,
+        results,
+    )
+
+    return results
 
 
