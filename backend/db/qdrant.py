@@ -44,3 +44,40 @@ def store_embeddings(embeddings):
     
 
     client.upsert(collection_name=COLLECTION_NAME, points=points)
+
+
+def list_documents():
+    documents = {}
+
+    offset = None
+
+    while True:
+        points, offset = client.scroll(
+            collection_name=COLLECTION_NAME,
+            limit=100,
+            with_payload=True,
+            with_vectors=False,
+            offset=offset,
+        )
+
+        for point in points:
+            payload = point.payload
+
+            document_id = payload["document_id"]
+
+            if document_id not in documents:
+                documents[document_id] = {
+                    "document_id": document_id,
+                    "filename": payload["filename"],
+                    "chunks": 0
+                }
+
+            documents[document_id]["chunks"] += 1
+
+        if offset is None:
+            break
+
+        return list(documents.values())
+
+def delete_document(document_id):
+    
