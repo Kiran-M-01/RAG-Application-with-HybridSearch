@@ -23,7 +23,7 @@ async def upload_pdf(file: UploadFile = File(...)):
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
 
-    result = ingest_pdf(file_path=file_path, document_id=document_id, filename=file.filename)
+    result = ingest_pdf(pdf_path=file_path, document_id=document_id, filename=file.filename)
 
     return {
         "message": "PDF uploaded successfully.",

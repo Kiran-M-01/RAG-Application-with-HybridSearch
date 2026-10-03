@@ -13,7 +13,7 @@ def retrive(query :str, limit :int = 5):
 
     results = client.query_points(
         collection_name=COLLECTION_NAME,
-        query_vector=query_embedding,
+        query=query_embedding,
         limit=limit
     )
 

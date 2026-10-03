@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from sympy import ask
+from rag.pipeline import ask
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
