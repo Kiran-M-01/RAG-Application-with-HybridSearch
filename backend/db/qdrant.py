@@ -1,5 +1,13 @@
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams, PointStruct
+# from qdrant_client.models import Distance, VectorParams, PointStruct
+from qdrant_client.models import (
+    Distance,
+    FieldCondition,
+    Filter,
+    MatchValue,
+    PointStruct,
+    VectorParams,
+)
 import uuid
 
 client = QdrantClient(host="localhost", port=6333)
@@ -80,4 +88,18 @@ def list_documents():
         return list(documents.values())
 
 def delete_document(document_id):
-    
+
+    client.delete(
+        collection_name=COLLECTION_NAME,
+        points_selector=Filter(
+            must=[
+                FieldCondition(
+                    key="document_id",
+                    match=MatchValue(
+                        value=document_id,
+                    ),
+                )
+            ]
+        ),
+    )
+
